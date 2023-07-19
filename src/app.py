@@ -51,6 +51,12 @@ def handle_hello():
 @app.route('/people', methods=['GET'])
 def get_all_people():
 
+    all_people = People.query.all()
+    all_people = list(map(lambda people: people.serialize(), all_people))
+    
+    return jsonify(all_people), 200
+
+
     return jsonify({
         'mensaje': 'aca deben estar todos los personajes de sw'
     })
@@ -58,7 +64,7 @@ def get_all_people():
 
 
 @app.route('/planets', methods=['GET'])
-def get_all_plaenets():
+def get_all_planets():
 
     return jsonify({
         'mensaje': 'aca deben estar todos los planetas de sw'
@@ -99,61 +105,32 @@ def get_one_planets(id):
     })
 
 
-@app.route("/planets", methods=["GET"])
-def planets_sw():
-    return jsonify({
-        "mensaje": "aca deben estar todos los planetas de sw"
-    })
-
-
-@app.route("/planets/<int:planet_id>", methods=["GET"])
-def get_planets(planet_id):
-    return jsonify({
-        "mensaje": "esta es la informacion del planeta con id"+str(id)
-    })
-
-
-
-@app.route("/users", methods=["GET"])
-def users():
-    return jsonify({
-        "mensaje": "aca deben estar todos los usuarios"
-    })
-
-
-@app.route("/users/favorites", methods=["GET"])
-def users_favorites():
-    return jsonify({
-        "mensaje": "aca deben estar todos los favoritos del usuario"
-    })
-
 
 @app.route("/favorite/planet/<int:planet_id>", methods=["POST"])
 def post_fav_planet(planet_id):
-    return jsonify({ 
-        "mensaje": "el planeta con id" + str(planet_id) + "ha sido agregado" 
-    })
 
-
-@app.route("/favorite/people/<int:people_id>", methods=["POST"])
-def post_fav_people(people_id):
-    return jsonify({ 
-        "mensaje": "el personaje con id" + str(people_id) + "ha sido agregado" 
+    return jsonify({
+        "mensaje": "el planeta con id" + str(planet_id) + "ha sido agregado"
     })
 
 
 @app.route("/favorite/planet/<int:planet_id>", methods=["DELETE"])
 def delete_fav_planet(planet_id):
-    return jsonify({ 
-        "mensaje": "el planeta con id" + str(planet_id) + "ha sido eliminado" 
+
+    return jsonify({
+        "mensaje": "el planeta con id" + str(planet_id) + "ha sido eliminado"
     })
 
 
 @app.route("/favorite/people/<int:people_id>", methods=["DELETE"])
 def delete_fav_people(people_id):
-    return jsonify({ 
-        "mensaje": "el personaje con id" + str(planet_id) + "ha sido eliminado" 
+
+    return jsonify({
+        "mensaje": "el personaje con id" + str(people_id) + "ha sido eliminado"
     })
+
+
+
 
 
 
